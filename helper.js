@@ -13,7 +13,7 @@ export async function getMentor(client,filter){
 
 export async function getOneMentor(client,filter){
     const result = await client.db("mentor_student").collection("Mentor").findOne(filter);
-    console.log("successfully mentor data obtained",result);
+    console.log("successfully one mentor data obtained",result);
     return result;
 }
 
