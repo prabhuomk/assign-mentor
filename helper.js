@@ -1,3 +1,5 @@
+// for mentor collection
+
 export async function insertMentor(client,Mentor){
     const result = await client.db("mentor_student").collection("Mentor").insertOne(Mentor);
     console.log("successfully mentor is inserted",result);
@@ -21,6 +23,8 @@ export async function updateMentor(client,Mentor_id,Student_id) {
     return result;
 }
 
+
+// for student collection
 export async function insertStudent(client,Student){
     const result = await client.db("mentor_student").collection("Student").insertOne(Student);
     console.log("successfully student is inserted",result);
