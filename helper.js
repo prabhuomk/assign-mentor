@@ -39,7 +39,7 @@ export async function getStudent(client,filter){
 
 export async function getOneStudent(client,filter){
     const result = await client.db("mentor_student").collection("Student").findOne(filter);
-    console.log("successfully student data obtained",result);
+    console.log("successfully one student data obtained",result);
     return result;
 }
 export async function updateStudent(client, Student_id,Mentor_id) {
