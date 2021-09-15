@@ -4,6 +4,7 @@ import express  from 'express';
 
 const router=express.Router();
 
+//create mentor
 
 router.route("/mentor").post(async(request,response)=>{
     const {Mentor_name,Mentor_id}=request.body;
@@ -12,12 +13,17 @@ router.route("/mentor").post(async(request,response)=>{
     response.send(mentorDetails);
     });
 
+    // get mentor dataa
+
 router.route("/mentorData").get(async(request,response)=>{
          const client = await createConnection();
         const getMentorDetails=await getMentor(client,{});
         response.send(getMentorDetails);
-        });
-    
+   
+    });
+
+
+ //  create student data 
 router.route("/student").post(async(request,response)=>{
         const {Student_name,Student_id}=request.body;
         const client = await createConnection();
@@ -26,12 +32,15 @@ router.route("/student").post(async(request,response)=>{
         response.send(studentDetails);
         });
 
+        // get student for whom mentor still not assigned
  router.route("/studentData").get(async(request,response)=>{
             const client = await createConnection();
            const getStudentDetails=await getStudent(client,{Mentor:"false"});
            response.send(getStudentDetails);
            });
 
+
+           //assign mentor to student
 router.route("/mentors/:Mentor_id").post(async(request,response)=>{
     const Mentor_id=request.params.Mentor_id;
     const {Student_id}=request.body;
@@ -46,6 +55,7 @@ router.route("/mentors/:Mentor_id").post(async(request,response)=>{
     response.send({message:"updated successfully"})
 });
 
+// change mentor to student
 router.route("/students/:Student_id").post(async(request,response)=>{
     const Student_id=request.params.Student_id;
     const {Mentor_id}=request.body;
