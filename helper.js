@@ -7,7 +7,7 @@ export async function insertMentor(client,Mentor){
 }
 export async function getMentor(client,filter){
     const result = await client.db("mentor_student").collection("Mentor").find(filter).toArray();
-    console.log("successfully mentor data obtained",result);
+    console.log("successfully mentor data obtained correctly",result);
     return result;
 }
 
