@@ -32,10 +32,15 @@ router.route("/mentorData").get(async(request,response)=>{
  //  create student data 
 router.route("/student").post(async(request,response)=>{
         const {Student_name,Student_id}=request.body;
+        const mentor="false";
         const client = await createConnection();
-        const mentor="false"
+        const getStudentFromDb= await getOneStudent(client,{Student_id:Student_id});
+        if(getStudentFromDb){
+            response.send({message:"student id already exist"})
+        }
+        else{
         const studentDetails=await insertStudent(client,{Student_name:Student_name,Student_id:Student_id,Mentor:mentor});
-        response.send(studentDetails);
+        response.send({message:"student added successfully"});}
         });
 
         // get student for whom mentor still not assigned
