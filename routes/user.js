@@ -10,7 +10,7 @@ router.route("/mentor").post(async(request,response)=>{
     const {Mentor_name,Mentor_id}=request.body;
     const client = await createConnection();
     const getiddetail= await getOneMentor(client,{Mentor_id:Mentor_id});
-    if(! getiddetail)
+    if(getiddetail)
     {
         response.send({message:"mentor id already exists"})
     }
