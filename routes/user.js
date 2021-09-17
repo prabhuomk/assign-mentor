@@ -38,6 +38,11 @@ router.route("/student").post(async(request,response)=>{
            const getStudentDetails=await getStudent(client,{Mentor:"false"});
            response.send(getStudentDetails);
            });
+ router.route("/studentList").get(async(request,response)=>{
+            const client = await createConnection();
+           const getStudentDetails=await getStudent(client,{});
+           response.send(getStudentDetails);
+           });          
 
 
            //assign mentor to student
