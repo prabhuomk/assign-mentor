@@ -9,9 +9,15 @@ const router=express.Router();
 router.route("/mentor").post(async(request,response)=>{
     const {Mentor_name,Mentor_id}=request.body;
     const client = await createConnection();
+    const getiddetail= await getOneMentor(client,{Mentor_id:Mentor_id});
+    if(! getiddetail)
+    {
+        response.send({message:"mentor id already exists"})
+    }
+    else{
     const mentorDetails=await insertMentor(client,{Mentor_name:Mentor_name,Mentor_id:Mentor_id});
-    response.send(mentorDetails);
-    });
+    response.send({message:"created successfully",mentorDetails});
+    }});
 
     // get mentor dataa
 
