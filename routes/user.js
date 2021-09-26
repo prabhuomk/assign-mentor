@@ -43,7 +43,7 @@ router.route("/student").post(async(request,response)=>{
         response.send({message:"student added successfully"});}
         });
 
-        // get student for whom mentor still not assigned yet
+        // get student for whom mentor still not assigned 
  router.route("/studentData").get(async(request,response)=>{
             const client = await createConnection();
            const getStudentDetails=await getStudent(client,{Mentor:"false"});
