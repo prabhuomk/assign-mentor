@@ -131,6 +131,8 @@ router.route("/students/:Student_id").post(async (request, response) => {
   const finalUpdate = arrayOfStudent.filter((data) => data != Student_id);
   const updateMen = await updateMentor(client, mentorData, finalUpdate);
   const deleteStudent = await deleteMyStudent(client,Student_id);
+  response.send({ message: "updation done successfully" });
+
 
 });
 
