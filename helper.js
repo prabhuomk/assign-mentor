@@ -65,3 +65,9 @@ export async function updateStudentsAfterMentorDelete(client,Mentor_id ) {
     console.log("successfully updated", result);
     return result;
 }
+
+export async function deleteMyStudent(client,Student_id) {
+    const result = await client.db("mentor_student").collection("Student").deleteOne({Student_id:Student_id});
+    console.log("successfully deleted", result);
+    return result;
+}

@@ -9,7 +9,8 @@ import {
   updateStudents,
   getOneStudent,
   deleteMyMentor,
-  updateStudentsAfterMentorDelete
+  updateStudentsAfterMentorDelete,
+  deleteMyStudent
 } from "../helper.js";
 import { createConnection } from "../index.js";
 import express, { response } from "express";
@@ -120,7 +121,17 @@ router.route("/students/:Student_id").post(async (request, response) => {
   // update in student collection
   const updatestu = await updateStudent(client, Student_id, Mentor_id);
 
-  response.send({ message: "done" });
+  response.send({ message: "updation done successfully" });
+}).delete(async(request,response) => {
+  const Student_id = request.params.Student_id;
+  const studentData = await getOneStudent(client, { Student_id: Student_id });
+  const mentorData = studentData.Mentor_id;
+  const findMentor = await getOneMentor(client, { Mentor_id: mentorData });
+  const arrayOfStudent = findMentor.Student_id;
+  const finalUpdate = arrayOfStudent.filter((data) => data != Student_id);
+  const updateMen = await updateMentor(client, mentorData, finalUpdate);
+  const deleteStudent = await deleteMyStudent(client,Student_id);
+
 });
 
 export const userRouter = router;
