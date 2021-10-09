@@ -22,6 +22,11 @@ export async function updateMentor(client,Mentor_id,Student_id) {
     console.log("successfully updated", result);
     return result;
 }
+export async function deleteMyMentor(client,Mentor_id) {
+    const result = await client.db("mentor_student").collection("Mentor").deleteOne({Mentor_id:Mentor_id });
+    console.log("successfully deleted", result);
+    return result;
+}
 
 
 // for student collection
@@ -37,7 +42,7 @@ export async function getStudent(client,filter){
     return result;
 }
 
-export async function getOneStudent(client,filter){
+export async function getOneStudent(client,filter){ 
     const result = await client.db("mentor_student").collection("Student").findOne(filter);
     console.log("successfully one student data obtained",result);
     return result;
@@ -51,6 +56,12 @@ export async function updateStudent(client, Student_id,Mentor_id) {
 
 export async function updateStudents(client, Student_id,Mentor) {
     const result = await client.db("mentor_student").collection("Student").updateOne({Student_id:Student_id },{$set:{Mentor:Mentor}});
+    console.log("successfully updated", result);
+    return result;
+}
+
+export async function updateStudentsAfterMentorDelete(client,Mentor_id ) {
+    const result = await client.db("mentor_student").collection("Student").updateMany({Mentor_id:Mentor_id },{$set:{Mentor:"false",Mentor_id:"-"}});
     console.log("successfully updated", result);
     return result;
 }
