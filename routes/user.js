@@ -124,6 +124,7 @@ router.route("/students/:Student_id").post(async (request, response) => {
   response.send({ message: "updation done successfully" });
 }).delete(async(request,response) => {
   const Student_id = request.params.Student_id;
+  const client = await createConnection();
   const studentData = await getOneStudent(client, { Student_id: Student_id });
   const mentorData = studentData.Mentor_id;
   const findMentor = await getOneMentor(client, { Mentor_id: mentorData });
