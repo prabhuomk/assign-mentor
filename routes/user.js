@@ -94,7 +94,7 @@ router
     const client = await createConnection();
     const deleteMentor = await deleteMyMentor(client, Mentor_id);
     const Student=await updateStudentsAfterMentorDelete(client,Mentor_id)
-    response.send({ message: "updated successfully" });
+    response.send({ message: "deleted successfully" });
   });
 // change mentor to student
 router.route("/students/:Student_id").post(async (request, response) => {
