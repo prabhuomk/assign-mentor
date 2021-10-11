@@ -205,8 +205,8 @@ router
     const Mentor_id = request.params.Mentor_id;
     const client = await createConnection();
     const getMentorDetail = await getOneMentor(client, { Mentor_id: Mentor_id });
-     const detail = getMentorDetail.Student_id;
-     if(detail.Student_id){
+     
+     if( getMentorDetail.Student_id){
        
       const deleteMentor = await deleteMyMentor(client, Mentor_id);
       response.send({ message: "Mentor deleted successfully" });}
