@@ -14,6 +14,11 @@ import {
 } from "../helper.js";
 import { createConnection } from "../index.js";
 import express, { response } from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+
+import {sendEmail} from "../middleware/mail.js"
 
 const router = express.Router();
 
