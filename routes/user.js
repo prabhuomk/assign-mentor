@@ -29,15 +29,17 @@ router
 .route("/signup")
 .post(async (request,response)=>{
     const { email_id,firstname,lastname,password }= request.body;
-    
-    
-
     const client=await createConnection();
+    const user=await getUser(client,{email_id:email_id});
+    if(!user){
     const hashedPassword=await genPassword(password);
-
     const pass=await insertUser(client,{email_id:email_id,firstname:firstname,lastname:lastname,password:hashedPassword})
     console.log(hashedPassword,pass );
-    response.send(pass);
+    response.send({message:"successfully signup done"});
+    }
+    else{
+        response.send({message:"email_id already exist try new one"})
+    }
     
 });
 
