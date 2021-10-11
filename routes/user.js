@@ -204,9 +204,17 @@ router
   .delete(async (request, response) => {
     const Mentor_id = request.params.Mentor_id;
     const client = await createConnection();
+    const getMentorDetail = await getOneMentor(client, { Mentor_id: Mentor_id });
+     const detail = getMentorDetail.Student_id;
+     if(detail.Student_id === "null"){
+       
+      const deleteMentor = await deleteMyMentor(client, Mentor_id);
+      response.send({ message: "Mentor deleted successfully" });}
+    else{
     const deleteMentor = await deleteMyMentor(client, Mentor_id);
+    
     const Student=await updateStudentsAfterMentorDelete(client,Mentor_id)
-    response.send({ message: "Mentor deleted successfully" });
+    response.send({ message: "Mentor deleted successfully" });}
   });
 // change mentor to student
 router.route("/students/:Student_id").post(async (request, response) => {
@@ -237,13 +245,19 @@ router.route("/students/:Student_id").post(async (request, response) => {
   const Student_id = request.params.Student_id;
   const client = await createConnection();
   const studentData = await getOneStudent(client, { Student_id: Student_id });
+  if(studentData.Mentor ==="true"){
   const mentorData = studentData.Mentor_id;
   const findMentor = await getOneMentor(client, { Mentor_id: mentorData });
   const arrayOfStudent = findMentor.Student_id;
   const finalUpdate = arrayOfStudent.filter((data) => data != Student_id);
   const updateMen = await updateMentor(client, mentorData, finalUpdate);
   const deleteStudent = await deleteMyStudent(client,Student_id);
-  response.send({ message: "updation done successfully" });
+  response.send({ message: "deleted   successfully" });
+  }
+  else{
+    const deleteStudent = await deleteMyStudent(client,Student_id);
+  response.send({ message: "deleted successfully" });
+  }
 
 
 });
